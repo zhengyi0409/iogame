@@ -32,7 +32,7 @@ export class IOGLockStepSyncRoom extends Room{
 
     // When a client leaves the room
     onLeave (client) {
-        console.log("ChatRoom:", client.sessionId, "left!");
+        console.log("IOGLockStepSyncRoom:", client.sessionId, "leave!");
     }
     
 

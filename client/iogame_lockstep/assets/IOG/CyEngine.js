@@ -13,8 +13,6 @@ cc.Class({
             displayName: "游戏位置"
         },
 
-        _client:null,
-        _room: null,
 
     },
 
@@ -23,36 +21,25 @@ cc.Class({
         this.room_name = "iogame";
         this.server_url = 'ws://localhost:2567';
 
-        // if (CyEngine.instance == undefined) {
-        //     CyEngine.instance = this;
-        //     console.log("CyEngine 创建单例");
-        // } else {
-        //     console.log("CyEngine 单例失败");
-        //     return;
-        // }
+        if (CyEngine.instance == undefined) {
+            CyEngine.instance = this;
+            console.log("CyEngine 创建单例");
+        } else {
+            console.log("CyEngine 单例失败");
+            return;
+        }
 
         // 创建一个客户端
-        this._client = new Colyseus.Client(this.server_url);
+        this.client = new Colyseus.Client(this.server_url);
+        this.getAvailableRooms();
+
         // this._client.joinOrCreate(this.roomName, {/* options */ }).then(room => {
         //     console.log("joined successfully", room);
         // }).catch(e => {
         //     console.log("join error:\n", e);
         // });
-
-
-        this._client.create(this.room_name, {/* options */}).then(room => {
-            console.log("joined successfully", room);
-        }).catch(e => {
-            console.error("join error", e);
-        });
-
-
-        //this.getAvailableRooms()
     },
 
-    // called every frame
-    update: function (dt) {
-    },
 
 
     /**
@@ -61,7 +48,8 @@ cc.Class({
      */
     getAvailableRooms(){
         let that = this;
-        this._client.getAvailableRooms(this.roomName).then(rooms => {
+        this.client.getAvailableRooms(this.room_name).then(rooms => {
+            console.log("rooms length:" + rooms.length)
             rooms.forEach((room) => {
                 console.log(room.roomId);
                 console.log(room.clients);
