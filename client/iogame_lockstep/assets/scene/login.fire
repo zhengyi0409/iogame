@@ -110,12 +110,11 @@
       "__id__": 2
     },
     "_enabled": true,
-    "ip": "localhost",
-    "port": 2567,
-    "roomName": "iogame",
     "roundContainer": {
       "__id__": 4
-    }
+    },
+    "_client": null,
+    "_room": null
   },
   {
     "__type__": "cc.Node",

@@ -10,6 +10,7 @@ import { monitor } from '@colyseus/monitor';
 import { ChatRoom } from "./rooms/01-chat-room";
 import { StateHandlerRoom } from "./rooms/02-state-handler";
 import { AuthRoom } from "./rooms/03-auth";
+import { IOGLockStepSyncRoom } from "./rooms/IOGLockStepSyncRoom";
 
 const port = Number(process.env.PORT || 2567) + Number(process.env.NODE_APP_INSTANCE || 0);
 const app = express();
@@ -37,6 +38,9 @@ gameServer.define("state_handler", StateHandlerRoom);
 
 // Register StateHandlerRoom as "state_handler"
 gameServer.define("auth", AuthRoom);
+
+// Register IOGLockStepSyncRoom as "iogame"
+gameServer.define('iogame', IOGLockStepSyncRoom);
 
 app.use('/', express.static(path.join(__dirname, "static")));
 app.use('/', serveIndex(path.join(__dirname, "static"), {'icons': true}))
