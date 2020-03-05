@@ -333,6 +333,9 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 35
+      },
+      {
         "__id__": 36
       }
     ],
@@ -395,7 +398,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 35
+        "__id__": 34
       }
     ],
     "_prefab": null,
@@ -900,7 +903,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 34
+        "__id__": 33
       },
       {
         "__id__": 26
@@ -934,7 +937,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 65
+      "y": 60
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -962,10 +965,10 @@
         "__id__": 25
       },
       {
-        "__id__": 32
+        "__id__": 31
       },
       {
-        "__id__": 33
+        "__id__": 32
       }
     ],
     "_prefab": null,
@@ -1140,9 +1143,6 @@
     "_components": [
       {
         "__id__": 30
-      },
-      {
-        "__id__": 31
       }
     ],
     "_prefab": null,
@@ -1220,7 +1220,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 360,
-      "height": 210
+      "height": 250
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1229,7 +1229,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -20
+      "y": -10
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1276,38 +1276,12 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 0,
+    "_N$paddingTop": 10,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
     "_N$spacingY": 20,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 27
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 360,
-    "_originalHeight": 0
   },
   {
     "__type__": "cc.Widget",
@@ -1438,6 +1412,21 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_atlas": null
+  },
+  {
+    "__type__": "c34726SumFGqrxnU7PaAHZB",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 9
+    },
+    "_enabled": true,
+    "RoomListGroup": {
+      "__id__": 27
+    },
+    "RoomListItemPrefab": {
+      "__uuid__": "246f98bf-1480-4763-a565-c958ed28261c"
+    }
   },
   {
     "__type__": "cc.Canvas",

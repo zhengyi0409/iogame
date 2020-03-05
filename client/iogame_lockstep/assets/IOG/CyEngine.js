@@ -2,6 +2,7 @@
 const Colyseus = require("colyseus");
 const CyEngine = {}
 
+
 cc.Class({
     extends: cc.Component,
 
@@ -13,11 +14,11 @@ cc.Class({
             displayName: "游戏位置"
         },
 
-
     },
 
 
     onLoad: function () {
+        console.log("CyEngine onLoad")
         this.room_name = "iogame";
         this.server_url = 'ws://localhost:2567';
 
@@ -47,7 +48,7 @@ cc.Class({
      * @memberof CyEngine
      */
     getAvailableRooms(){
-        let that = this;
+        let self = this;
         this.client.getAvailableRooms(this.room_name).then(rooms => {
             console.log("rooms length:" + rooms.length)
             rooms.forEach((room) => {
@@ -56,6 +57,7 @@ cc.Class({
                 console.log(room.maxClients);
                 console.log(room.metadata);
             });
+            Notification.dispatch("getAvailableRooms",{rooms});
         }).catch(e => {
             console.error(e);
         });
