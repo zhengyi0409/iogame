@@ -1,19 +1,17 @@
 
 const Colyseus = require("colyseus");
-const CyEngine = {}
+window.CyEngine = {}
 
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-
         roundContainer: {
             default: null,
             type: cc.Node,
             displayName: "游戏位置"
         },
-
     },
 
 
@@ -32,13 +30,9 @@ cc.Class({
 
         // 创建一个客户端
         this.client = new Colyseus.Client(this.server_url);
+        console.log("client id:" + this.client.id)
         this.getAvailableRooms();
 
-        // this._client.joinOrCreate(this.roomName, {/* options */ }).then(room => {
-        //     console.log("joined successfully", room);
-        // }).catch(e => {
-        //     console.log("join error:\n", e);
-        // });
     },
 
 
@@ -48,7 +42,6 @@ cc.Class({
      * @memberof CyEngine
      */
     getAvailableRooms(){
-        let self = this;
         this.client.getAvailableRooms(this.room_name).then(rooms => {
             console.log("rooms length:" + rooms.length)
             rooms.forEach((room) => {
@@ -63,6 +56,56 @@ cc.Class({
         });
     },
 
+
+    /**
+     *创建房间
+     * @memberof CyEngine
+     */
+    createRoom(){
+        this.client.create(this.room_name, {/* options */}).then(room => {
+            console.log("create room successfully", room);
+            this.room = room
+            this.onJoinRoom()
+        }).catch(e => {
+            console.error("join error", e);
+        });
+    },
+
+
+    /**
+     *加入房间
+     * @memberof CyEngine
+     */
+    joinRoom(){
+        this.client.join(this.room_name, {/* options */}).then(room => {
+            console.log("joined room successfully", room);
+            this.room = room
+            this.onJoinRoom()
+        }).catch(e => {
+            console.error("join error", e);
+        });
+    },
+
+
+    /**
+     *当加入房间时
+     * @memberof CyEngine
+     */
+    onJoinRoom(){
+        Notification.dispatch("roomJoined",{ room_id: this.room.id, room_sessionId: this.room.sessionId ,room_name: this.room.name});
+        //this.startRound();
+    },
+
+
+    /**
+     *离开房间
+     * @memberof CyEngine
+     */
+    leaveRoom(){
+        if(this.room && this.room.id){
+            this.room.leave()
+        }
+    }
 
 });
 

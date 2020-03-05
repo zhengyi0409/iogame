@@ -15,17 +15,17 @@ cc.Class({
 
     onLoad () {
 
-
-
-
     },
 
     start () {
 
-
-
-
     },
 
-
+    joinRoom() {
+        if (this._roomID == "createRoom") {
+            CyEngine.instance.createRoom();
+        } else {
+            CyEngine.instance.joinRoom();
+        }
+    }
 });
