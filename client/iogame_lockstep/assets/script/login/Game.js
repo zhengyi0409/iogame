@@ -23,5 +23,15 @@ cc.Class({
 
     },
 
+    onDestroy() {
+        Notification.removeListenersByObj(this);
+    },
+
     // update (dt) {},
+
+    // 离开房间
+    exitGameCall(){
+        CyEngine.getInstance().leaveRoom();
+        cc.director.loadScene("login");
+    },
 });

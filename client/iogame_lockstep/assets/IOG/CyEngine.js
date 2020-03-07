@@ -10,7 +10,6 @@ window.CyEngine = cc.Class({
 
         // 创建一个客户端
         this.client = new Colyseus.Client(this.server_url);
-        this.getAvailableRooms();
     },
 
 

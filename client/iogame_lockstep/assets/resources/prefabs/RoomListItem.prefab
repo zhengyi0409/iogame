@@ -436,7 +436,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "CyRoomListItem",
+    "component": "RoomListItem",
     "handler": "joinRoom",
     "customEventData": ""
   },
