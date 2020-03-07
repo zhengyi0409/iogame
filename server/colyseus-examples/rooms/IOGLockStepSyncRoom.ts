@@ -15,7 +15,8 @@ export class IOGLockStepSyncRoom extends Room{
 
     // When client successfully join the room
     onJoin (client, options, auth) {
-        console.log("JOINING ROOM");
+        console.log("JOINING ROOM sessionId:" + client.sessionId);
+        this.broadcast(`${ client.sessionId } joined`);
     }
 
     // Checks if a new client is allowed to join. (default: `return true`)
@@ -32,7 +33,8 @@ export class IOGLockStepSyncRoom extends Room{
 
     // When a client leaves the room
     onLeave (client) {
-        console.log("IOGLockStepSyncRoom:", client.sessionId, "leave!");
+        console.log("IOGLockStepSyncRoom sessionId:", client.sessionId, "leave");
+        this.broadcast(`${ client.sessionId } leave`);
     }
     
 

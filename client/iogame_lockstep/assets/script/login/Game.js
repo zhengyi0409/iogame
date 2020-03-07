@@ -16,7 +16,7 @@ cc.Class({
     },
 
     onLoad () {
-        console.log("Game onLoad")
+        //console.log("Game onLoad")
     },
 
     start () {

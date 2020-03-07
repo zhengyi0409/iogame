@@ -20,13 +20,13 @@ cc.Class({
 
 
     onLoad () {
-        console.log("Login onLoad")
+        //console.log("Login onLoad")
         Notification.on("getAvailableRooms", this.onGetRoomList, this);
         Notification.on("roomJoined", this.onRoomJoined, this);
     },
 
     start () {
-        // 创建网络客户端clientm请求房间列表
+        // 创建网络客户端client,请求房间列表
         CyEngine.getInstance().getAvailableRooms();
     },
 
@@ -35,10 +35,10 @@ cc.Class({
     },
 
     onGetRoomList(e){
-        console.log("onGetRoomList")
+        //console.log("onGetRoomList")
         this.RoomListGroup.removeAllChildren();
         if (e.rooms.length > 0) {
-            console.log("有房间")
+            //console.log("有房间")
             e.rooms.forEach(element => {
                 let item = cc.instantiate(this.RoomListItemPrefab);
                 let itemController = item.getComponent("RoomListItem");
@@ -48,7 +48,7 @@ cc.Class({
                 item.parent = this.RoomListGroup;
             });
         }else{
-            console.log("没有房间,新建并加入新房间")
+            //console.log("没有房间,新建并加入新房间")
             let item = cc.instantiate(this.RoomListItemPrefab);
             let itemController = item.getComponent("RoomListItem");
             itemController._roomID = "createRoom";
@@ -64,6 +64,7 @@ cc.Class({
 
 
     onRoomJoined(e) {
+        console.log("onRoomJoined room_id:" + e.id + " room_name:" + e.name + " room_sessionId:" + e.sessionId)
         cc.director.loadScene("game");
     }
 });
