@@ -15,8 +15,6 @@ window.CyEngine = cc.Class({
         this.client = new Colyseus.Client(this.server_url);
     },
 
-
-
     /**
      *获取可以加入的房间
      * @memberof CyEngine
@@ -110,7 +108,7 @@ window.CyEngine = cc.Class({
             console.log("room_sessionId:" + this.room.sessionId + " leave room_id:" + this.room.id + " room_name:" + this.room.name)
             this.room.leave()
         }else{
-            console.log("room is not exist")
+            console.log("room no exist")
         }
     }
 
