@@ -92,7 +92,7 @@ window.CyEngine = cc.Class({
 
         // This event is triggered when the server sends a message directly to the client.
         this.room.onMessage((message) => {
-            console.log("event message received from server message is is:" + message);
+            console.log("event message received from server message is is is:" + message);
         });
 
         Notification.dispatch("roomJoined",this.room);
