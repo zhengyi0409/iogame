@@ -82,7 +82,7 @@ window.CyEngine = cc.Class({
 
         // This event is triggered when the client leave the room.
         this.room.onLeave((code) => {
-            console.log("event client left the room code:" + code);
+            console.log("event client leave the room code:" + code);
         });
 
         // This event is triggered when some error occurs in the room handler.
