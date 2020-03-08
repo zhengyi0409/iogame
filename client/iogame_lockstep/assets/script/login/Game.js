@@ -7,11 +7,11 @@ cc.Class({
     },
 
     onLoad () {
-        console.log("Game onLoad")
+        //console.log("Game onLoad")
     },
 
     start () {
-        console.log("Game start")
+        //console.log("Game start")
     },
 
     onDestroy() {

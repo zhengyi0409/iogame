@@ -73,7 +73,7 @@ window.CyEngine = cc.Class({
 
         // This event is triggered when the server updates its state.
         this.room.onStateChange.once((state) => {
-            console.log("event this is the first room state!", state);
+            console.log("event this is the first room state:", state);
         });
 
         this.room.onStateChange((state) => {
