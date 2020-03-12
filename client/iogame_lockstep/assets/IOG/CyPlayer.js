@@ -1,9 +1,21 @@
 
 window.CyPlayer = cc.Class({
 
-    sessionId:null,
-    isLocal:false,
-    input:{mlb:false, mlb:false, dir:cc.Vec2.ZERO, mpos:cc.Vec2.ZERO},
+    properties: {
+
+        sessionId:null,
+        isLocal:false,
+        input:[]
+    },
+
+    // 构造函数
+    ctor: function () {
+        this.input.mlb = false
+        this.input.mrb = false
+        this.input.dir = cc.Vec2.ZERO
+        this.input.mpos = cc.Vec2.ZERO
+    },
+
 
     updateInput(cmd){
         this.input.mlb = cmd.mlb;
