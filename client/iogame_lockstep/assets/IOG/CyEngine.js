@@ -5,6 +5,14 @@ window.CyEngine = cc.Class({
     // 基类
     extends: cc.Component,
 
+
+    properties: {
+
+        seed:51,  // 随机种子
+
+    },
+
+
     // 构造函数
     ctor: function () {
         //console.log("CyEngine ctor")
@@ -110,7 +118,26 @@ window.CyEngine = cc.Class({
         }else{
             console.log("room no exist")
         }
+    },
+
+
+
+    /**
+     *随机函数
+     *
+     * @param {number} [max=1]
+     * @param {number} [min=0]
+     * @returns
+     * @memberof CyEngine
+     */
+    seededRandom(max = 1, min = 0) {
+        this.seed = (this.seed * 9301 + 49297) % 233280;
+        let rnd = this.seed / 233280.0;
+        return min + rnd * (max - min);
     }
+
+
+
 
 });
 

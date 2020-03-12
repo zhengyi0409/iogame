@@ -2,7 +2,7 @@
   "__type__": "cc.AnimationClip",
   "_name": "onhit",
   "_objFlags": 0,
-  "_native": "",
+  "_rawFiles": null,
   "_duration": 0.4166666666666667,
   "sample": 60,
   "speed": 1,
@@ -81,6 +81,14 @@
           "value": {
             "__type__": "cc.Vec2",
             "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "frame": 0.4166666666666667,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1.5,
             "y": 1
           }
         }

@@ -3,12 +3,10 @@
     "__type__": "cc.Prefab",
     "_name": "",
     "_objFlags": 0,
-    "_native": "",
+    "_rawFiles": null,
     "data": {
       "__id__": 1
-    },
-    "optimizationPolicy": 0,
-    "asyncLoadAssets": false
+    }
   },
   {
     "__type__": "cc.Node",
@@ -16,19 +14,17 @@
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
+    "_tag": -1,
     "_active": true,
-    "_level": 1,
     "_components": [
       {
         "__id__": 2
-      },
-      {
-        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 4
+      "__id__": 3
     },
+    "_id": "",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -37,42 +33,32 @@
       "b": 255,
       "a": 255
     },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
+    "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
       "y": 0.5
     },
-    "_position": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_scale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
     },
     "_rotationX": 0,
     "_rotationY": 0,
-    "_quat": {
-      "__type__": "cc.Quat",
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": 0,
-    "groupIndex": 0,
-    "_id": ""
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
   },
   {
     "__type__": "cc.CircleCollider",
@@ -88,18 +74,7 @@
       "x": 0,
       "y": 0
     },
-    "_radius": 64,
-    "_id": ""
-  },
-  {
-    "__type__": "f299ejcI91HApjqt9dBVkS7",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_id": ""
+    "_radius": 64
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -107,7 +82,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "e8819647-ac29-46ca-9626-7f381e48c479"
+      "__uuid__": "3df3d032-ad4f-4a8b-a670-dd9fe9825cae"
     },
     "fileId": "9dS0po2TlJpIQX1w7z97vV",
     "sync": false
