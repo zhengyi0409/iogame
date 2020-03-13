@@ -32,8 +32,6 @@ cc.Class({
      */
     addPlayer(player) {
         let playerNode = cc.instantiate(this.playerPrefab);
-        //let controller: CharacterController = playerNode.getComponent(CharacterController);
-        //controller.player = player;
         let pos = cc.p(this.cyEngine.seededRandom(120, -120), this.cyEngine.seededRandom(120, -120));
         playerNode.position = pos;
         this.node.addChild(playerNode);

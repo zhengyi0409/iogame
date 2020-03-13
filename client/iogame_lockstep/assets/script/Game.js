@@ -15,7 +15,7 @@ cc.Class({
             default: null,
             type: cc.Node,
             displayName: "游戏位置",
-         },
+        },
 
 
     },
@@ -23,7 +23,6 @@ cc.Class({
     onLoad () {
         //console.log("Game onLoad")
         let roundNode = cc.instantiate(this.roundPrefab);
-        //this.round = roundNode.getComponent(CyRoundManager);
         this.roundContainer.addChild(roundNode);
     },
 
