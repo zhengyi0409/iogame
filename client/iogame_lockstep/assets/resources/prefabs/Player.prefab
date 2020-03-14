@@ -304,7 +304,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "036e1e2e-0a8c-4347-8177-c6d96738793b"
+      "__uuid__": "e56b8d75-83b2-488a-b400-15f6d39c739b"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -661,7 +661,7 @@
         "__uuid__": "5e2927b2-9b53-4cf2-b0b9-72f9692413d6"
       }
     ],
-    "playOnLoad": false
+    "playOnLoad": true
   },
   {
     "__type__": "cc.PrefabInfo",
