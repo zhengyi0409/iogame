@@ -3,7 +3,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
         mousePoint:{
             default: null,
             type: cc.Node,

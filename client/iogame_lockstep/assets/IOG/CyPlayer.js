@@ -2,7 +2,6 @@
 window.CyPlayer = cc.Class({
 
     properties: {
-
         sessionId:null,
         isLocal:false,
         input:[]

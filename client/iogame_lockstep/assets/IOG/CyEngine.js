@@ -136,9 +136,6 @@ window.CyEngine = cc.Class({
         return min + rnd * (max - min);
     }
 
-
-
-
 });
 
 // 客户端单例

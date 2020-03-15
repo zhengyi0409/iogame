@@ -457,9 +457,16 @@
     "roundPrefab": {
       "__uuid__": "d3d62c38-491e-44d7-8dc8-184bf880cd61"
     },
+    "playerPrefab": {
+      "__uuid__": "925c8948-7732-4401-ab74-396a9f91c4ff"
+    },
     "roundContainer": {
       "__id__": 3
-    }
+    },
+    "pickablePrefab": {
+      "__uuid__": "9283f5cd-e4ac-4089-96f1-4c4a4672e055"
+    },
+    "_maxBotsCount": 3
   },
   {
     "__type__": "d06bdA13plBgJkdyuL6ApZA",
