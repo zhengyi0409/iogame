@@ -12,7 +12,7 @@ import { StateHandlerRoom } from "./rooms/02-state-handler";
 import { AuthRoom } from "./rooms/03-auth";
 import { IOGLockStepSyncRoom } from "./rooms/IOGLockStepSyncRoom";
 
-const port = Number(process.env.PORT || 2567) + Number(process.env.NODE_APP_INSTANCE || 0);
+const port = Number(process.env.PORT || 2568) + Number(process.env.NODE_APP_INSTANCE || 0);
 const app = express();
 
 app.use(cors());

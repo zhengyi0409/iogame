@@ -21,6 +21,7 @@ cc.Class({
 
     onLoad () {
         //console.log("Login onLoad")
+        cc.director.getPhysicsManager().enabled = true;
         Notification.on("getAvailableRooms", this.onGetRoomList, this);
         Notification.on("roomJoined", this.onRoomJoined, this);
     },

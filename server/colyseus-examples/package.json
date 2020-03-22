@@ -15,7 +15,7 @@
   "dependencies": {
     "@colyseus/monitor": "^0.11.17",
     "colyseus": "^0.12.0",
-    "colyseus.js": "^0.12.1",
+    "colyseus.js": "^0.12.2",
     "cors": "^2.8.5",
     "end-of-stream": "^1.4.4",
     "express": "^4.14.0",

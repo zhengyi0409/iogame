@@ -1,9 +1,10 @@
 {
-  "ver": "1.0.0",
+  "ver": "2.2.0",
   "uuid": "2c4b6c43-0cc1-4ce9-b060-c43c8cc13835",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
+  "premultiplyAlpha": false,
   "subMetas": {
     "fx_crash_smoke_3": {
       "ver": "1.0.3",

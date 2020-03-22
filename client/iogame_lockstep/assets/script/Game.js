@@ -17,7 +17,7 @@ cc.Class({
 
         roundContainer:{
             default: null,
-            type: cc.Node,
+            type:cc.Node,
             displayName: "游戏位置",
         },
 
@@ -40,7 +40,7 @@ cc.Class({
         this.roundContainer.addChild(roundNode);
         for (let i = 0; i < 10; i++) {
             let pickableNode = cc.instantiate(this.pickablePrefab);
-            let pos = cc.p(this.cyEngine.seededRandom(-320,320),this.cyEngine.seededRandom(-320,320));
+            let pos = cc.v2(this.cyEngine.seededRandom(-320,320),this.cyEngine.seededRandom(-320,320));
             pickableNode.position = pos;
             roundNode.addChild(pickableNode);
         }
@@ -52,9 +52,7 @@ cc.Class({
         Notification.removeListenersByObj(this);
     },
 
-
     //update (dt) {},
-
 
     /**
      *添加AI机器人
@@ -63,7 +61,7 @@ cc.Class({
     addBot(){
         for(let i=0;i<this._maxBotsCount;i++){
             let playerNode = cc.instantiate(this.playerPrefab);
-            let pos = cc.p(this.cyEngine.seededRandom(320, -320), this.cyEngine.seededRandom(320, -320));
+            let pos = cc.v2(this.cyEngine.seededRandom(320, -320), this.cyEngine.seededRandom(320, -320));
             playerNode.position = pos;
             this.roundContainer.addChild(playerNode);
         }
@@ -76,9 +74,19 @@ cc.Class({
         let playerNode = cc.instantiate(this.playerPrefab);
         let hand = playerNode.getChildByName("hand");
         hand.active = true
-        let pos = cc.p(this.cyEngine.seededRandom(320, -320), this.cyEngine.seededRandom(320, -320));
+        let pos = cc.v2(this.cyEngine.seededRandom(320, -320), this.cyEngine.seededRandom(320, -320));
         playerNode.position = pos;
         this.roundContainer.addChild(playerNode);
+
+
+        let player = new CyPlayer();
+        let cmd = {}
+        cmd.mpos = pos
+        cmd.dir = cc.Vec2.ZERO
+        player.updateInput(cmd)
+        let controller = playerNode.getComponent("CharacterController");
+        controller._player = player;
+        this.node.getComponent("InputManager")._player = player
     },
 
 

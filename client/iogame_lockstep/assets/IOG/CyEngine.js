@@ -17,7 +17,7 @@ window.CyEngine = cc.Class({
     ctor: function () {
         //console.log("CyEngine ctor")
         this.room_name = "iogame";                // 房间名称
-        this.server_url = 'ws://localhost:2567';  // 服务端地址
+        this.server_url = 'ws://localhost:2568';  // 服务端地址
 
         // 创建一个客户端
         this.client = new Colyseus.Client(this.server_url);
@@ -101,9 +101,36 @@ window.CyEngine = cc.Class({
         // This event is triggered when the server sends a message directly to the client.
         this.room.onMessage((message) => {
             console.log("event message received from server message:" + message);
+
+            switch(message[0]){
+                case "f":
+                    //this.onReceiveServerFrame(message);
+                    break;
+                case "fs":
+                    //this.onReceiveServerFrame(message);
+                    //把服务器帧同步到本地帧缓存后，读取并执行本地帧缓存
+                    //this.nextTick();
+                    break;
+                default:
+                    console.warn("未处理的消息:");
+                    console.warn(message);
+                    break;
+            }
+
         });
 
         Notification.dispatch("roomJoined",this.room);
+    },
+
+
+
+    /**
+     *发送信息到服务器房间
+     *
+     * @param {*} data
+     */
+    sendToRoom(data){
+        this.room.send(data);
     },
 
 
