@@ -8,9 +8,14 @@ window.CyEngine = cc.Class({
 
     properties: {
 
-        seed:51,  // 随机种子
+        seed:51,                   // 随机种子
+        players:null,              // 玩家列表,存储玩家输入
+        readyToControl:false,      // 是否可以开始接受玩家输入，等待追帧结束之后才可以接受玩家输入。
+        frame_inv:0,               // 每帧间隔，如果帧缓存里未渲染帧数过多，则减小间隔以追上服务器进度
+        frames:[],                 // 所有帧缓存
+        serverFrameAcc:3,          // 服务器帧插值
 
-    },
+},
 
 
     // 构造函数
@@ -50,6 +55,8 @@ window.CyEngine = cc.Class({
             console.log("create room successfully");
             this.room = room
             this.onJoinRoom()
+            this.startRound()
+            Notification.dispatch("roomJoined",this.room);
         }).catch(e => {
             console.error("join error", e);
         });
@@ -65,6 +72,8 @@ window.CyEngine = cc.Class({
             console.log("joined successfully");
             this.room = room
             this.onJoinRoom()
+            this.startRound()
+            Notification.dispatch("roomJoined",this.room);
         }).catch(e => {
             console.error("join error", e);
         });
@@ -101,25 +110,9 @@ window.CyEngine = cc.Class({
         // This event is triggered when the server sends a message directly to the client.
         this.room.onMessage((message) => {
             console.log("event message received from server message:" + message);
-
-            switch(message[0]){
-                case "f":
-                    //this.onReceiveServerFrame(message);
-                    break;
-                case "fs":
-                    //this.onReceiveServerFrame(message);
-                    //把服务器帧同步到本地帧缓存后，读取并执行本地帧缓存
-                    //this.nextTick();
-                    break;
-                default:
-                    console.warn("未处理的消息:");
-                    console.warn(message);
-                    break;
-            }
-
+            this.onMessage(message)
         });
 
-        Notification.dispatch("roomJoined",this.room);
     },
 
 
@@ -135,6 +128,24 @@ window.CyEngine = cc.Class({
 
 
     /**
+     *开始游戏
+     *
+     * @memberof CyEngine
+     */
+    startRound(){
+        this.readyToControl = false;
+        this.players = new Array()
+        this.frame_inv = 0
+
+        //锁定帧数
+        //cc.game.pause();
+
+        //获取服务器上所有帧缓存
+        this.sendToRoom(["fs"]);
+
+    },
+
+    /**
      *离开房间
      * @memberof CyEngine
      */
@@ -148,6 +159,57 @@ window.CyEngine = cc.Class({
     },
 
 
+    /**
+     *处理服务器消息
+     *
+     * @param {*} message 消息
+     * @memberof CyEngine
+     */
+    onMessage(message){
+        switch(message[0]){
+            case "f":
+                //this.onReceiveServerFrame(message);
+                break;
+            case "fs":
+                this.onReceiveServerFrame(message);
+                //把服务器帧同步到本地帧缓存后，读取并执行本地帧缓存
+                //this.nextTick();
+                break;
+            default:
+                console.warn("未处理的消息:");
+                console.warn(message);
+                break;
+        }
+    },
+
+
+    /**
+     *从服务器获取帧信息
+     *
+     * @param {*} message 帧信息
+     * @memberof CyEngine
+     */
+    onReceiveServerFrame(message){
+        this.addFrames(message[1]);
+    },
+
+
+    /**
+     *添加帧信息到帧缓存
+     *
+     * @param {Array<any>} frames 待添加的帧信息
+     * @memberof CyEngine
+     */
+    addFrames(_frames) {
+        _frames.forEach((m) => {
+            this.frames[m[0]] = m[1];
+            for (let i = m[0]; i > m[0] - this.serverFrameAcc; i--) {
+                if (this.frames[i] == undefined) {
+                    this.frames[i] = [];
+                }
+            }
+        });
+    },
 
     /**
      *随机函数

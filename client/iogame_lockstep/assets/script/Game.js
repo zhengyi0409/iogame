@@ -45,7 +45,7 @@ cc.Class({
             roundNode.addChild(pickableNode);
         }
 
-        this.addPlayer()
+        //this.addPlayer()
     },
 
     onDestroy() {
