@@ -14,6 +14,7 @@ window.CyEngine = cc.Class({
         frame_inv:0,               // 每帧间隔，如果帧缓存里未渲染帧数过多，则减小间隔以追上服务器进度
         frames:[],                 // 所有帧缓存
         serverFrameAcc:3,          // 服务器帧插值
+        serverFrameRate:20,        // 服务器帧数(需要和服务端确定好)
 
 },
 
@@ -55,8 +56,6 @@ window.CyEngine = cc.Class({
             console.log("create room successfully");
             this.room = room
             this.onJoinRoom()
-            this.startRound()
-            Notification.dispatch("roomJoined",this.room);
         }).catch(e => {
             console.error("join error", e);
         });
@@ -72,8 +71,6 @@ window.CyEngine = cc.Class({
             console.log("joined successfully");
             this.room = room
             this.onJoinRoom()
-            this.startRound()
-            Notification.dispatch("roomJoined",this.room);
         }).catch(e => {
             console.error("join error", e);
         });
@@ -87,6 +84,7 @@ window.CyEngine = cc.Class({
      */
     onJoinRoom(){
         //console.log("onJoinRoom room_id:" + this.room.id + " room_name:" + this.room.name + " room_sessionId:" + this.room.sessionId)
+        Notification.dispatch("roomJoined",this.room);
 
         // This event is triggered when the server updates its state.
         this.room.onStateChange.once((state) => {
@@ -138,11 +136,23 @@ window.CyEngine = cc.Class({
         this.frame_inv = 0
 
         //锁定帧数
-        //cc.game.pause();
-
+        cc.game.pause();
         //获取服务器上所有帧缓存
         this.sendToRoom(["fs"]);
+        //以固定时间间隔上传用户输入指令
+        setInterval(this.sendCMD.bind(this), 1000 / this.serverFrameRate);
 
+    },
+
+
+    /**
+     *发送玩家输入到服务器
+     *
+     * @memberof CyEngine
+     */
+    sendCMD() {
+        let data = InputManager._instance.toServerData()
+        this.sendToRoom(["cmd", ["input", data]]);
     },
 
     /**

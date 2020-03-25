@@ -36,6 +36,8 @@ cc.Class({
     },
 
     start () {
+        this.cyEngine.startRound()
+
         let roundNode = cc.instantiate(this.roundPrefab);
         this.roundContainer.addChild(roundNode);
         for (let i = 0; i < 10; i++) {
@@ -53,6 +55,7 @@ cc.Class({
     },
 
     //update (dt) {},
+
 
     /**
      *添加AI机器人
@@ -94,7 +97,7 @@ cc.Class({
      *当玩家可以控制的时候
      */
     onReadyToControl() {
-        //this.cyEngine.sendToRoom(["cmd", ["addplayer"]]);
+        CyEngine.getInstance().sendToRoom(["cmd", ["addplayer"]]);
     },
 
 

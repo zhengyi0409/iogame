@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.2575421180572306,
-      "y": 0.2575421180572306,
+      "x": 0.2575421180572305,
+      "y": 0.2575421180572305,
       "z": 1
     },
     "_quat": {
@@ -680,8 +680,8 @@
     "mousePoint": {
       "__id__": 12
     },
-    "_mousePosition": null,
     "_player": null,
+    "_mousePosition": null,
     "_inputDirectionLocal": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -691,6 +691,7 @@
     "_rightPressed": false,
     "_upPressed": false,
     "_downPressed": false,
+    "_instance": null,
     "_id": "17omntmS5IP6YljQW59VJ7"
   }
 ]

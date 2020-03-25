@@ -1,5 +1,5 @@
 
-cc.Class({
+window.InputManager = cc.Class({
     extends: cc.Component,
 
     properties: {
@@ -8,20 +8,23 @@ cc.Class({
             type: cc.Node,
         },
 
-        _mousePosition:null,
         _player:null,   // 本地玩家数据
+        _mousePosition:cc.Vec2.ZERO,
         _inputDirectionLocal:cc.Vec2.ZERO,
-
         _leftPressed:false,
         _rightPressed:false,
         _upPressed:false,
         _downPressed:false,
-
+        _instance:null,
     },
 
     onLoad () {
-
-
+        if (InputManager._instance == undefined) {
+            InputManager._instance = this;
+        } else {
+            console.log("InputManager 单机失败");
+            return;
+        }
     },
 
     start () {
@@ -52,7 +55,7 @@ cc.Class({
         this._mousePosition = pos
         this.mousePoint.position = pos
 
-        this._player.updateInput(this.toServerData())
+        //this._player.updateInput(this.toServerData())
     },
 
     onMouseMove: function onMouseMove(event) {
@@ -60,7 +63,7 @@ cc.Class({
         this._mousePosition = pos
         this.mousePoint.position = pos
 
-        this._player.updateInput(this.toServerData())
+        //this._player.updateInput(this.toServerData())
     },
 
 
@@ -86,7 +89,7 @@ cc.Class({
                 break;
         }
 
-        this._player.updateInput(this.toServerData())
+        //this._player.updateInput(this.toServerData())
     },
 
     onKeyUp(event){
@@ -111,10 +114,8 @@ cc.Class({
                 break;
         }
 
-        this._player.updateInput(this.toServerData())
+        //this._player.updateInput(this.toServerData())
     },
-
-
 
 
     toServerData(){
@@ -123,8 +124,5 @@ cc.Class({
             mpos:this._mousePosition
         };
     },
-
-
-
 
 });
