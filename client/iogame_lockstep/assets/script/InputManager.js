@@ -25,6 +25,9 @@ window.InputManager = cc.Class({
             console.log("InputManager µ¥»úÊ§°Ü");
             return;
         }
+
+        this._mousePosition = cc.Vec2.ZERO
+        this._inputDirectionLocal = cc.Vec2.ZERO
     },
 
     start () {

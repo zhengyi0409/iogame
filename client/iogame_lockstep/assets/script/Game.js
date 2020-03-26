@@ -37,7 +37,6 @@ cc.Class({
 
     start () {
         this.cyEngine.startRound()
-
         let roundNode = cc.instantiate(this.roundPrefab);
         this.roundContainer.addChild(roundNode);
         for (let i = 0; i < 10; i++) {

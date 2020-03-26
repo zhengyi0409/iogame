@@ -15,7 +15,7 @@ window.CyEngine = cc.Class({
         frames:[],                 // 所有帧缓存
         serverFrameAcc:3,          // 服务器帧插值
         serverFrameRate:20,        // 服务器帧数(需要和服务端确定好)
-
+        frame_index:0,             // 当前帧
 },
 
 
@@ -183,13 +183,71 @@ window.CyEngine = cc.Class({
             case "fs":
                 this.onReceiveServerFrame(message);
                 //把服务器帧同步到本地帧缓存后，读取并执行本地帧缓存
-                //this.nextTick();
+                this.nextTick();
                 break;
             default:
                 console.warn("未处理的消息:");
                 console.warn(message);
                 break;
         }
+    },
+
+    /**
+     *处理帧
+     *
+     * @memberof CyEngine
+     */
+    runTick() {
+        let frame = null;
+        if(this.frames.length > 1){
+            //第一帧延时处理，以免在初始的时候丢失第一帧
+            frame = this.frames[this.frame_index];
+        }
+
+        if (frame) {
+            if (frame.length > 0) {
+                frame.forEach((cmd) => {
+                    if (typeof this["cmd_" + cmd[1][0]] == "function") {
+                        this["cmd_" + cmd[1][0]](cmd);
+                    } else {
+                        console.log("服务器处理函数cmd_" + cmd[1][0] + " 不存在");
+                    }
+                })
+            }
+            this.frame_index++;
+            cc.game.step();
+        }
+
+    },
+
+    /**
+     *下一帧
+     *
+     * @memberof CyEngine
+     */
+    nextTick() {
+        this.runTick();
+        if(this.frames.length - this.frame_index > 100){
+            //当缓存帧过多时，一次处理多个帧信息
+            console.log("跳帧追帧:" + (this.frames.length - this.frame_index))
+            // for (let i = 0; i < 50; i++) {
+            //     this.runTick();
+            // }
+            this.frame_inv = 0;
+        }else if(this.frames.length - this.frame_index > this.serverFrameAcc){
+            // console.log("追帧:" + (this.frames.length - this.frame_index))
+            // for (let i = this.frame_index; i < this.frames.length; i++) {
+            //     this.runTick();
+            // }
+            this.frame_inv = 0;
+        }else{
+            if (this.readyToControl == false) {
+                this.readyToControl = true;
+
+            }
+
+        }
+        setTimeout(this.nextTick.bind(this), this.frame_inv)
     },
 
 
@@ -234,6 +292,20 @@ window.CyEngine = cc.Class({
         let rnd = this.seed / 233280.0;
         return min + rnd * (max - min);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 });
 

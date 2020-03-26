@@ -48,7 +48,7 @@ export class IOGLockStepSyncRoom extends Room{
                 break;
         }
 
-        console.log("BasicRoom received message from", client.sessionId, ":", message);
+        console.log("BasicRoom received message from", client.sessionId, ":", JSON.stringify(message));
 
     }
 
