@@ -8,7 +8,6 @@ window.InputManager = cc.Class({
             type: cc.Node,
         },
 
-        _player:null,   // 本地玩家数据
         _mousePosition:cc.Vec2.ZERO,
         _inputDirectionLocal:cc.Vec2.ZERO,
         _leftPressed:false,
@@ -57,16 +56,12 @@ window.InputManager = cc.Class({
         var pos = this.node.convertToNodeSpaceAR(event.getLocation());
         this._mousePosition = pos
         this.mousePoint.position = pos
-
-        //this._player.updateInput(this.toServerData())
     },
 
     onMouseMove: function onMouseMove(event) {
         var pos = this.node.convertToNodeSpaceAR(event.getLocation());
         this._mousePosition = pos
         this.mousePoint.position = pos
-
-        //this._player.updateInput(this.toServerData())
     },
 
 
@@ -91,8 +86,6 @@ window.InputManager = cc.Class({
             default:
                 break;
         }
-
-        //this._player.updateInput(this.toServerData())
     },
 
     onKeyUp(event){
@@ -116,8 +109,6 @@ window.InputManager = cc.Class({
             default:
                 break;
         }
-
-        //this._player.updateInput(this.toServerData())
     },
 
 

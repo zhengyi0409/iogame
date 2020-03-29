@@ -16,17 +16,29 @@ window.CyEngine = cc.Class({
         serverFrameAcc:3,          // 服务器帧插值
         serverFrameRate:20,        // 服务器帧数(需要和服务端确定好)
         frame_index:0,             // 当前帧
+        frame_interval:null,
 },
 
 
     // 构造函数
     ctor: function () {
         //console.log("CyEngine ctor")
+        this.init()
         this.room_name = "iogame";                // 房间名称
         this.server_url = 'ws://localhost:2568';  // 服务端地址
 
         // 创建一个客户端
         this.client = new Colyseus.Client(this.server_url);
+    },
+
+
+    init(){
+        this.players = null             // 玩家列表,存储玩家输入
+        this.readyToControl = false     // 是否可以开始接受玩家输入，等待追帧结束之后才可以接受玩家输入。
+        this.frame_inv = 0              // 每帧间隔，如果帧缓存里未渲染帧数过多，则减小间隔以追上服务器进度
+        this.frames = []                // 所有帧缓存
+        this.frame_index = 0            // 当前帧
+        this.frame_interval = null
     },
 
     /**
@@ -107,10 +119,9 @@ window.CyEngine = cc.Class({
 
         // This event is triggered when the server sends a message directly to the client.
         this.room.onMessage((message) => {
-            console.log("event message received from server message:" + message);
+            console.log("event message received from server message:" + message[0]);
             this.onMessage(message)
         });
-
     },
 
 
@@ -131,17 +142,14 @@ window.CyEngine = cc.Class({
      * @memberof CyEngine
      */
     startRound(){
-        this.readyToControl = false;
+        this.init()
         this.players = new Array()
-        this.frame_inv = 0
-
         //锁定帧数
         cc.game.pause();
         //获取服务器上所有帧缓存
         this.sendToRoom(["fs"]);
         //以固定时间间隔上传用户输入指令
-        setInterval(this.sendCMD.bind(this), 1000 / this.serverFrameRate);
-
+        this.frame_interval = setInterval(this.sendCMD.bind(this), 1000 / this.serverFrameRate);
     },
 
 
@@ -163,6 +171,7 @@ window.CyEngine = cc.Class({
         if(this.room && this.room.sessionId){
             console.log("room_sessionId:" + this.room.sessionId + " leave room_id:" + this.room.id + " room_name:" + this.room.name)
             this.room.leave()
+            clearInterval(this.frame_interval);
         }else{
             console.log("room no exist")
         }
@@ -173,12 +182,15 @@ window.CyEngine = cc.Class({
      *处理服务器消息
      *
      * @param {*} message 消息
+     * message = ["f",[client.sessionId,["addplayer"]]]
+     * message = ["f",[client.sessionId,["input", data]]]
+     *
      * @memberof CyEngine
      */
     onMessage(message){
         switch(message[0]){
             case "f":
-                //this.onReceiveServerFrame(message);
+                this.onReceiveServerFrame(message);
                 break;
             case "fs":
                 this.onReceiveServerFrame(message);
@@ -204,6 +216,8 @@ window.CyEngine = cc.Class({
             frame = this.frames[this.frame_index];
         }
 
+        //frame = [[client.sessionId,["addplayer"]],[client.sessionId,["addplayer"]],[client.sessionId,["addplayer"]]]
+        //frame = [[client.sessionId,["input", data]],[client.sessionId,["input", data]],[client.sessionId,["input", data]]]
         if (frame) {
             if (frame.length > 0) {
                 frame.forEach((cmd) => {
@@ -215,7 +229,10 @@ window.CyEngine = cc.Class({
                 })
             }
             this.frame_index++;
-            cc.game.step();
+            cc.game.step(); // 执行一帧游戏循环，此时update回调一次
+            console.log("------------------------------------- runTick frame_index:" + this.frame_index)
+        }else{
+            console.log("------------------------------------- runTick frame = null")
         }
 
     },
@@ -235,17 +252,19 @@ window.CyEngine = cc.Class({
             // }
             this.frame_inv = 0;
         }else if(this.frames.length - this.frame_index > this.serverFrameAcc){
-            // console.log("追帧:" + (this.frames.length - this.frame_index))
+            console.log("追帧:" + (this.frames.length - this.frame_index))
             // for (let i = this.frame_index; i < this.frames.length; i++) {
             //     this.runTick();
             // }
             this.frame_inv = 0;
         }else{
+            // 等待追帧结束之后才可以接受玩家输入
             if (this.readyToControl == false) {
                 this.readyToControl = true;
-
+                this.sendToRoom(["cmd", ["addplayer"]]);
             }
-
+            //正常速度
+            this.frame_inv = 1000 / (this.serverFrameRate * (this.serverFrameAcc + 1));
         }
         setTimeout(this.nextTick.bind(this), this.frame_inv)
     },
@@ -265,7 +284,7 @@ window.CyEngine = cc.Class({
     /**
      *添加帧信息到帧缓存
      *
-     * @param {Array<any>} frames 待添加的帧信息
+     * @param {Array<any>} frames 待添加的帧信息 m = [this.frame_index,[client.sessionId,["addplayer"]]] or  [this.frame_index,[client.sessionId,["input", data]]]
      * @memberof CyEngine
      */
     addFrames(_frames) {
@@ -291,21 +310,48 @@ window.CyEngine = cc.Class({
         this.seed = (this.seed * 9301 + 49297) % 233280;
         let rnd = this.seed / 233280.0;
         return min + rnd * (max - min);
+    },
+
+
+    /**
+     *处理服务器输入指令
+     *
+     * @param {*} cmd 指令
+     * @memberof CyEngine
+     */
+    cmd_input(cmd) {
+        this.players.forEach((p) => {
+            if (p.sessionId == cmd[0]) {
+                p.updateInput(cmd[1][1])
+            }
+        })
+    },
+
+
+
+    /**
+     *处理服务器新加玩家指令
+     *
+     * @param {*} cmd 指令
+     * @memberof CyEngine
+     */
+    cmd_addplayer(cmd) {
+        console.log("-------------------- cmd_addplayer")
+        let existPlayer = this.players.filter((p)=>{
+            return p.sessionId == cmd[0];
+        });
+
+        if(existPlayer.length > 0){
+            // 已存在
+        }else{
+            // 不存在
+            let player = new CyPlayer();
+            player.sessionId = cmd[0];
+            player.isLocal = cmd[0] == this.room.sessionId;
+            this.players.push(player);
+            Notification.dispatch("addPlayer",player);
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
 

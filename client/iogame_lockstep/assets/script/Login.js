@@ -24,7 +24,20 @@ cc.Class({
         cc.director.getPhysicsManager().enabled = true;
         Notification.on("getAvailableRooms", this.onGetRoomList, this);
         Notification.on("roomJoined", this.onRoomJoined, this);
+
+        //测试 step
+        //cc.game.pause();
+        //setInterval(this.gamestep.bind(this), 1000);
     },
+
+    // gamestep() {
+    //     console.log("----------------------- login step")
+    //     cc.game.step();
+    // },
+
+    //update (dt) {
+        //console.log("----------------------- login update")
+    //},
 
     start () {
         // 创建网络客户端client,请求房间列表

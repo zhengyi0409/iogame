@@ -33,6 +33,7 @@ cc.Class({
     onLoad () {
         this.cyEngine = CyEngine.getInstance();
         this.inputManager = this.node.getComponent("inputManager")
+        Notification.on("addPlayer", this.addPlayer, this);
     },
 
     start () {
@@ -45,8 +46,6 @@ cc.Class({
             pickableNode.position = pos;
             roundNode.addChild(pickableNode);
         }
-
-        //this.addPlayer()
     },
 
     onDestroy() {
@@ -54,7 +53,6 @@ cc.Class({
     },
 
     //update (dt) {},
-
 
     /**
      *添加AI机器人
@@ -72,31 +70,19 @@ cc.Class({
     /**
      *添加玩家
      */
-    addPlayer() {
+    addPlayer(player) {
         let playerNode = cc.instantiate(this.playerPrefab);
         let hand = playerNode.getChildByName("hand");
-        hand.active = true
+        if(player.isLocal){
+            hand.active = true
+        }else{
+            hand.active = false
+        }
         let pos = cc.v2(this.cyEngine.seededRandom(320, -320), this.cyEngine.seededRandom(320, -320));
         playerNode.position = pos;
         this.roundContainer.addChild(playerNode);
-
-
-        let player = new CyPlayer();
-        let cmd = {}
-        cmd.mpos = pos
-        cmd.dir = cc.Vec2.ZERO
-        player.updateInput(cmd)
         let controller = playerNode.getComponent("CharacterController");
         controller._player = player;
-        this.node.getComponent("InputManager")._player = player
-    },
-
-
-    /**
-     *当玩家可以控制的时候
-     */
-    onReadyToControl() {
-        CyEngine.getInstance().sendToRoom(["cmd", ["addplayer"]]);
     },
 
 
@@ -105,6 +91,7 @@ cc.Class({
      */
     exitGameCall(){
         CyEngine.getInstance().leaveRoom();
+        cc.game.resume();
         cc.director.loadScene("login");
     },
 });

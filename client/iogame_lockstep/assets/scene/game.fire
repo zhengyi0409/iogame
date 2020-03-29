@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.2575421180572305,
-      "y": 0.2575421180572305,
+      "x": 0.25822397239660017,
+      "y": 0.25822397239660017,
       "z": 1
     },
     "_quat": {
@@ -52,7 +52,7 @@
       "z": 0,
       "w": 1
     },
-    "_localZOrder": 2,
+    "_localZOrder": 40,
     "groupIndex": 0,
     "autoReleaseAssets": false,
     "_id": "3e59c1a2-748b-4ffb-a453-a7fcddfd8dab"
@@ -133,7 +133,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 3,
+    "_localZOrder": 41,
     "groupIndex": 0,
     "_id": "cd3GVEM3VB34F8tUsZKGHl"
   },
@@ -194,7 +194,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 4,
+    "_localZOrder": 42,
     "groupIndex": 0,
     "_id": "7c7LeRwXhMP5g7D5mbvkn+"
   },
@@ -281,7 +281,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 5,
+    "_localZOrder": 43,
     "groupIndex": 0,
     "_id": "4ePhmvSF5PTrEAEL0HjwC6"
   },
@@ -345,7 +345,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 6,
+    "_localZOrder": 44,
     "groupIndex": 0,
     "_id": "3f5a53QWBBEZ9kuuUINvYw"
   },
@@ -536,7 +536,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 7,
+    "_localZOrder": 45,
     "groupIndex": 0,
     "_id": "ffgoQWWl9K/522QUTXdII0"
   },
@@ -597,7 +597,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 8,
+    "_localZOrder": 46,
     "groupIndex": 0,
     "_id": "76Kfr5KPpPgrYpm4+/Kofh"
   },
@@ -680,7 +680,6 @@
     "mousePoint": {
       "__id__": 12
     },
-    "_player": null,
     "_mousePosition": null,
     "_inputDirectionLocal": {
       "__type__": "cc.Vec2",
